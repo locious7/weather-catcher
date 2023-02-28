@@ -1,6 +1,6 @@
 import os
-import json
 import requests
+from pprint import pprint
 
 # GET api key from environment variable
 my_secret = os.environ['apikey']
@@ -17,10 +17,6 @@ response = requests.get(api_url)
 
 # check if the api call is valid or not
 if response.status_code == 200:
-    pretty_json = json.dumps(response.json, indent=4, sort_keys=True, ensure_ascii=False)
-    print(pretty_json)
+    pprint(response.json()["current"]['temp_f'])
 else:
     print(f'Request failed with status code {response.status_code}')
-ttyty
-
-
