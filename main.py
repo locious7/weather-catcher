@@ -21,5 +21,6 @@ if response.status_code == 200:
     print(pretty_json)
 else:
     print(f'Request failed with status code {response.status_code}')
+ttyty
 
 
