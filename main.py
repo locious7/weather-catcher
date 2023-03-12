@@ -6,7 +6,7 @@ from pprint import pprint
 class WeatherCatcher:
     def __init__(self):
         # GET api key from environment variable
-        self.my_secret = os.environ['apikey'] #"f038b09d00d3498ab5811212232702" 
+        self.my_secret = os.environ['apikey']
         self.location = None
         self.c_or_f = None
         self.response = None
