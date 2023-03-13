@@ -10,11 +10,9 @@ class WeatherCatcher:
         self.location = None
         self.c_or_f = None
         self.response = None
-        # make a call to the weather api using the reqests module
-        #self.response = requests.get(self.api_url)
 
     # Ask user for location
-    def define_input(self):
+    def define_validate_input(self):
         while True:
             # Get location data from user
             self.location = input("What is your current location? (City, State OR Zip Code): ")
@@ -23,7 +21,6 @@ class WeatherCatcher:
             # Make request to weather API
             self.api_url = f'http://api.weatherapi.com/v1/current.json?key={self.my_secret}&q={self.location}&aqi=no'
             self.response = requests.get(self.api_url)
-            
             # Check if location is valid
             if self.response.status_code == 200:
                 break
@@ -43,6 +40,6 @@ class WeatherCatcher:
 
 
 weather = WeatherCatcher()
-weather.get_user_input()
+weather.define_validate_input()
 weather.get_weather()
 del weather
