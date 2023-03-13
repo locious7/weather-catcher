@@ -3,7 +3,7 @@ import requests
 from pprint import pprint
 
 
-class WeatherCatcher:
+class WeatherSnatcher:
     def __init__(self):
         # GET api key from environment variable
         self.my_secret = os.environ['apikey']
@@ -39,7 +39,7 @@ class WeatherCatcher:
             print(f'Request failed with status code {self.response.status_code}')
 
 
-weather = WeatherCatcher()
+weather = WeatherSnatcher()
 weather.define_validate_input()
 weather.get_weather()
 del weather
