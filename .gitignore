@@ -133,3 +133,10 @@ settings.json
 
 # macos
 .DS_Store
+
+#replit
+.breakpoints
+.replit
+poetry.lock
+pyproject.toml
+replit.nix

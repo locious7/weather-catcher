@@ -15,7 +15,7 @@ class WeatherSnatcher:
         self.f_days = None
 
     # Ask user for location
-    def define_validate_input(self):
+    def user_input(self):
         while True:
             # Get location data from user
             self.location = input("What is your current location? (City, State OR Zip Code): ")
@@ -53,7 +53,7 @@ class WeatherSnatcher:
 
 def main():
     weather = WeatherSnatcher()
-    weather.define_validate_input()
+    weather.user_input()
     weather.get_weather()
     del weather
 
