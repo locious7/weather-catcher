@@ -1,6 +1,5 @@
 import os
 import requests
-from pprint import pprint
 
 
 class WeatherSnatcher:
@@ -44,10 +43,10 @@ class WeatherSnatcher:
     def get_weather(self):
         # check if the api call is valid or not and return current weather temperature in Celcius
         if self.response.status_code == 200 and self.c_or_f == "C":
-            print('The current temperature outside is: ' + self.response.json()["current"]['temp_c'])
+            print('The current temperature outside is: ' + str(self.response.json()["current"]['temp_c']))
         # check if the api call is valid or not and return current weather temperature in Farhenhiet
         elif self.response.status_code == 200 and self.c_or_f == "F":
-            pprint('The current temperature outside is: ' + self.response.json()["current"]['temp_f'])
+            print('The current temperature outside is: ' + str(self.response.json()["current"]['temp_f']))
         else:
             print(f'Request failed with status code {self.response.status_code}')
 
