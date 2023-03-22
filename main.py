@@ -4,9 +4,9 @@ import json
 
 class WeatherSnatcher:
     def __init__(self):
-        # GET api key from environment variable
+        # get api key from environment variable
         self.my_secret = os.environ["apikey"]
-        # Set initial values
+        # set initial values
         self.location = None
         self.valid_location = None
         self.cels_or_fahr = None
@@ -15,26 +15,53 @@ class WeatherSnatcher:
         self.f_days = None
         self.json_data = None
 
-    # Ask user for location
+    # ask user for location
     def get_weather(self):
         while True:
-            # Get current weather, forecasted weather or both	
-            self.weather = input("Would you like the Current weather, Forecasted weather or Both? (C, F, or B): ")
-            # convert user input to uppercase
-            self.weather_upper = self.weather.upper()
-            # check of the user wants forecasted weather and if so prompt for days
-            if self.weather_upper in ("F", "B"):
+            # get current weather, forecasted weather or both from user 
+            while True:
+                self.weather = input("b (C, F, or B): ")
+                # convert user input to uppercase
+                self.weather_upper = self.weather.upper()
+                # check if valid input
+                if self.weather_upper in ("C", "F", "B"):
+                    break 
+                else:
+                    print("Invalid input. Please enter either C, F, or B.")
+                    continue
+            # check if the user asked for forecasted weather and if so prompt for days
+            while True:
+                if self.weather_upper in ("F", "B"):            
                     self.f_days = int(input("How many days of forecasted weather would you like? (1-3): "))
-            # Get Celsius or fahrenheit
-            self.cels_or_fahr = input("Celsius of Fahrenheit? (C or F): ")
-            # convert user input to uppercase
-            self.cels_or_fahr_upper = self.cels_or_fahr.upper()
-            # Get location data from user
-            self.location = input("What is your current location? (City, State OR Zip Code): ")
-            # Check if location is valid
-            self.valid_location = f"https://api.weatherapi.com/v1/forecast.json?key={self.my_secret}&q={self.location}"
-            self.response = requests.get(self.valid_location)
-            # Get forecasted weather from API
+                    # check if valid input
+                    if 1 <= self.f_days <= 3:
+                        break
+                    else:
+                        print("Invalid input. Please enter a number between 1 and 3")
+                        continue
+            # check if the user wants celsius or fahrenheit
+            while True:
+                self.cels_or_fahr = input("Celsius of Fahrenheit? (C or F): ")
+                # convert user input to uppercase
+                self.cels_or_fahr_upper = self.cels_or_fahr.upper()
+                if self.cels_or_fahr_upper in ("C", "F"):
+                    break
+                else:
+                    print("Invalid input. Please enter either a C of F.")
+                    continue
+            # get location from user
+            while True:
+                # check if location is valid
+                self.location = input("What is your current location? (City, State OR Zip Code): ")
+                self.valid_location = f"https://api.weatherapi.com/v1/forecast.json?key={self.my_secret}&q={self.location}"
+                 # make request to API for forecasted weather
+                self.response = requests.get(self.valid_location)
+                if self.response.status_code != 200:
+                    print("Invalid location. Please try again.")
+                    continue
+                else:
+                    break
+            # get forecasted weather from API
             if self.response.status_code == 200:
                 if self.weather_upper in ("F", "B"):
                     self.forecasted_api_url = f"https://api.weatherapi.com/v1/forecast.json?key={self.my_secret}&q={self.location}&days={self.f_days}&aqi=no&alerts=no"
@@ -52,7 +79,9 @@ class WeatherSnatcher:
                     self.json_data = json.loads(self.response.text)
                     break
             else:
-                print("Invalid location. Please try again.")
+                print(f"Request failed with status code {self.response.status_code}")
+                exit
+    
     # display weather
     def display_weather(self):
         # check if the api call is valid and return current weather in Celsius
@@ -78,7 +107,7 @@ class WeatherSnatcher:
             # Iterate over the JSON payload from API call and return each days forecasted weather 
             for forecastday in self.json_data["forecast"]["forecastday"]:
                 self.date = forecastday["date"]
-                self.avgtemp_c = forecastday["day"]["avgtemp_f"]
+                self.avgtemp_f = forecastday["day"]["avgtemp_f"]
                 self.condition = forecastday["day"]["condition"]["text"]
                 print(f"{self.date}:\n \t-Avg.Temp: {self.avgtemp_f} Fahrenhiet\n \t-Condition: {self.condition}")
         # check if the api call is valid and return current and forecasted weather in Fahrhenhiet
