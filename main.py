@@ -20,7 +20,7 @@ class WeatherSnatcher:
         while True:
             # get current weather, forecasted weather or both from user 
             while True:
-                self.weather = input("b (C, F, or B): ")
+                self.weather = input("Would you like the Current weather, Forecasted weather or Both? (C, F, or B): ")
                 # convert user input to uppercase
                 self.weather_upper = self.weather.upper()
                 # check if valid input
@@ -81,7 +81,6 @@ class WeatherSnatcher:
             else:
                 print(f"Request failed with status code {self.response.status_code}")
                 exit
-    
     # display weather
     def display_weather(self):
         # check if the api call is valid and return current weather in Celsius
