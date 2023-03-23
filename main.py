@@ -39,6 +39,8 @@ class WeatherSnatcher:
                     else:
                         print("Invalid input. Please enter a number between 1 and 3")
                         continue
+                else:
+                    break
             # check if the user wants celsius or fahrenheit
             while True:
                 self.cels_or_fahr = input("Celsius of Fahrenheit? (C or F): ")
@@ -85,11 +87,11 @@ class WeatherSnatcher:
     def display_weather(self):
         # check if the api call is valid and return current weather in Celsius
         if self.response.status_code == 200 and self.cels_or_fahr_upper == "C" and self.weather_upper == "C":
-            print("The current temperature outside is: " + str(self.json_data["current"]["temp_c"]))
+            print("The current temperature outside is: " + str(self.json_data["current"]["temp_c"]) + "º celsius")
             print("The current condition outside is: " + str(self.json_data["current"]["condition"]["text"]))
         # check if the api call is valid and return current weather in Farhenhiet
         elif self.response.status_code == 200 and self.cels_or_fahr_upper == "F" and self.weather_upper == "C":
-            print("The current temperature outside is: " + str(self.json_data["current"]["temp_f"]))
+            print("The current temperature outside is: " + str(self.json_data["current"]["temp_f"]) + "º fahrenhiet")
             print("The current condition outside is: " + str(self.json_data["current"]["condition"]["text"]))
         # check if the api call is valid and return forecasted weather in Celsius
         elif self.response.status_code == 200 and self.cels_or_fahr_upper == "C" and self.weather_upper == "F":
