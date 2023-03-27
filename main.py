@@ -105,11 +105,11 @@ class WeatherSnatcher:
         print("\n")
         # Check if the api call is successful and print current weather in Celsius
         if self.response.status_code == 200 and self.cels_or_fahr_upper == "C" and self.weather_upper == "C":
-            print("The current temperature outside is: " + str(self.json_data["current"]["temp_c"]) + "º celsius")
+            print("The current temperature outside is: " + str(self.json_data["current"]["temp_c"]) + "º Celsius")
             print("The current condition outside is: " + str(self.json_data["current"]["condition"]["text"]))
         # Check if the api call is successful and print current weather in Farhenhiet
         elif self.response.status_code == 200 and self.cels_or_fahr_upper == "F" and self.weather_upper == "C":
-            print("The current temperature outside is: " + str(self.json_data["current"]["temp_f"]) + "º fahrenhiet")
+            print("The current temperature outside is: " + str(self.json_data["current"]["temp_f"]) + "º Fahrenhiet")
             print("The current condition outside is: " + str(self.json_data["current"]["condition"]["text"]))
         # Check if the api call is successful and print forecasted weather in Celsius
         elif self.response.status_code == 200 and self.cels_or_fahr_upper == "C" and self.weather_upper == "F":
@@ -139,7 +139,7 @@ class WeatherSnatcher:
                 print(f"{self.formatted_date}:\n \t-Avg.Temp: {self.avgtemp_f}º Fahrenhiet\n \t-Condition: {self.condition}")
         # Check if the api call is successful and print current and forecasted weather in Celsius
         elif self.response.status_code == 200 and self.cels_or_fahr_upper == "C" and self.weather_upper == "B":
-            print("The current temperature outside is: " + str(self.json_data["current"]["temp_c"]))
+            print("The current temperature outside is: " + str(self.json_data["current"]["temp_c"]) + "º Celsius")
             print("The current condition outside is: " + str(self.json_data["current"]["condition"]["text"]) + "\n")
             print(f"Here is your forecasted weather for the next {self.f_days} days:")
             # Iterate over the JSON payload from API call and print each days forecasted weather 
@@ -154,7 +154,7 @@ class WeatherSnatcher:
                 print(f"{self.formatted_date}:\n \t-Avg.Temp: {self.avgtemp_c}º Celsius\n \t-Condition: {self.condition}")            
         # Check if the api call is successful and print current and forecasted weather in Fahrhenhiet
         elif self.response.status_code == 200 and self.cels_or_fahr_upper == "F" and self.weather_upper == "B":
-            print("The current temperature outside is: " + str(self.json_data["current"]["temp_f"]))
+            print("The current temperature outside is: " + str(self.json_data["current"]["temp_f"]) + "º Fahrenhiet")
             print("The current condition outside is: " + str(self.json_data["current"]["condition"]["text"]) + "\n")
             print(f"Here is your forecasted weather for the next {self.f_days} days:")
             # Iterate over the JSON payload from API call and print each days forecasted weather 
